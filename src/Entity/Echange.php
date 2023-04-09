@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Echange
  *
- * @ORM\Table(name="echange", indexes={@ORM\Index(name="fk_transporteur_echange", columns={"id_transporteur"}), @ORM\Index(name="fk_panier_echange", columns={"id_panier"})})
+ * @ORM\Table(name="echange", indexes={@ORM\Index(name="fk_panier_echange", columns={"id_panier"}), @ORM\Index(name="fk_transporteur_echange", columns={"id_transporteur"})})
  * @ORM\Entity
  */
 class Echange
@@ -29,16 +29,6 @@ class Echange
     private $etat = 'NULL';
 
     /**
-     * @var \Transporteur
-     *
-     * @ORM\ManyToOne(targetEntity="Transporteur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_transporteur", referencedColumnName="id")
-     * })
-     */
-    private $idTransporteur;
-
-    /**
      * @var \Panier
      *
      * @ORM\ManyToOne(targetEntity="Panier")
@@ -47,6 +37,16 @@ class Echange
      * })
      */
     private $idPanier;
+
+    /**
+     * @var \Transporteur
+     *
+     * @ORM\ManyToOne(targetEntity="Transporteur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_transporteur", referencedColumnName="id")
+     * })
+     */
+    private $idTransporteur;
 
     public function getId(): ?int
     {
@@ -65,18 +65,6 @@ class Echange
         return $this;
     }
 
-    public function getIdTransporteur(): ?Transporteur
-    {
-        return $this->idTransporteur;
-    }
-
-    public function setIdTransporteur(?Transporteur $idTransporteur): self
-    {
-        $this->idTransporteur = $idTransporteur;
-
-        return $this;
-    }
-
     public function getIdPanier(): ?Panier
     {
         return $this->idPanier;
@@ -85,6 +73,18 @@ class Echange
     public function setIdPanier(?Panier $idPanier): self
     {
         $this->idPanier = $idPanier;
+
+        return $this;
+    }
+
+    public function getIdTransporteur(): ?Transporteur
+    {
+        return $this->idTransporteur;
+    }
+
+    public function setIdTransporteur(?Transporteur $idTransporteur): self
+    {
+        $this->idTransporteur = $idTransporteur;
 
         return $this;
     }

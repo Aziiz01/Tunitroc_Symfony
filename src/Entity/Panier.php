@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Panier
  *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="produitS_user", columns={"produit_s"}), @ORM\Index(name="produitR_user", columns={"produit_r"})})
+ * @ORM\Table(name="panier", indexes={@ORM\Index(name="produitR_user", columns={"produit_r"}), @ORM\Index(name="produitS_user", columns={"produit_s"})})
  * @ORM\Entity
  */
 class Panier
@@ -41,20 +41,20 @@ class Panier
      *
      * @ORM\ManyToOne(targetEntity="Produit")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="produit_s", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="produit_r", referencedColumnName="id")
      * })
      */
-    private $produitS;
+    private $produitR;
 
     /**
      * @var \Produit
      *
      * @ORM\ManyToOne(targetEntity="Produit")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="produit_r", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="produit_s", referencedColumnName="id")
      * })
      */
-    private $produitR;
+    private $produitS;
 
     public function getId(): ?int
     {
@@ -85,18 +85,6 @@ class Panier
         return $this;
     }
 
-    public function getProduitS(): ?Produit
-    {
-        return $this->produitS;
-    }
-
-    public function setProduitS(?Produit $produitS): self
-    {
-        $this->produitS = $produitS;
-
-        return $this;
-    }
-
     public function getProduitR(): ?Produit
     {
         return $this->produitR;
@@ -105,6 +93,18 @@ class Panier
     public function setProduitR(?Produit $produitR): self
     {
         $this->produitR = $produitR;
+
+        return $this;
+    }
+
+    public function getProduitS(): ?Produit
+    {
+        return $this->produitS;
+    }
+
+    public function setProduitS(?Produit $produitS): self
+    {
+        $this->produitS = $produitS;
 
         return $this;
     }

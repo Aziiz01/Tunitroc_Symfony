@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Transporteur
  *
- * @ORM\Table(name="transporteur", indexes={@ORM\Index(name="echange_transporteur", columns={"id_echange"})})
+ * @ORM\Table(name="transporteur")
  * @ORM\Entity
  */
 class Transporteur
@@ -49,16 +49,6 @@ class Transporteur
      * @ORM\Column(name="photo", type="blob", length=16777215, nullable=false)
      */
     private $photo;
-
-    /**
-     * @var \Echange
-     *
-     * @ORM\ManyToOne(targetEntity="Echange")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_echange", referencedColumnName="id")
-     * })
-     */
-    private $idEchange;
 
     public function getId(): ?int
     {
@@ -109,18 +99,6 @@ class Transporteur
     public function setPhoto($photo): self
     {
         $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getIdEchange(): ?Echange
-    {
-        return $this->idEchange;
-    }
-
-    public function setIdEchange(?Echange $idEchange): self
-    {
-        $this->idEchange = $idEchange;
 
         return $this;
     }
