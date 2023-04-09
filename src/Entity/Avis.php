@@ -29,9 +29,9 @@ class Avis
     private $temps;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="aime", type="integer", nullable=false)
+     * @ORM\Column(name="aime", type="string", nullable=false)
      */
     private $aime;
 
@@ -59,12 +59,12 @@ class Avis
         return $this;
     }
 
-    public function getAime(): ?int
+    public function getAime(): ?string
     {
         return $this->aime;
     }
 
-    public function setAime(int $aime): self
+    public function setAime(string $aime): self
     {
         $this->aime = $aime;
 
