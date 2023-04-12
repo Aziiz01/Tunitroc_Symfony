@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+
+{% block body %}
+ <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tunitroc page</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"  crossorigin="anonymous" />
+
+    </head>
+    <body>
+   <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Tunitroc</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_front') }}">Home</a></li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('app_transporteur') }}">Transport</a>
+</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="hcontainer">
+  <h2>Entrez votre ID</h2>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Entrez votre ID" aria-label="Entrez votre ID" aria-describedby="button-addon2">
+    <button id="show" class="btn btn-outline-dark" type="button" onclick="show()">Rechercher</button>
+  </div>
+</div> 
+        <div class="container">
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id de l'échange</th>
+            <th>état de la livraison</th>
+            <th>Modifier</th>
+            <th>Suppression</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for echange in echanges %}
+            <tr>
+                <td>{{ echange.id }}</td>
+                <td>{{ echange.etat }}</td>
+               <td>{{ echange.location }}</td>
+
+                <td>
+  <a href="{{ path('update_trechange', {'id': echange.id}) }}" class="btn btn-primary">Modifier</a>
+                </td>
+<td><a href="{{ path('delete_echange', {'id': echange.id}) }}" onclick="return confirm('Are you sure you want to delete this exchange?')"><i class="fa fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<style>
+  /* Container for the form and table */
+  .parent-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50vh;
+    background-color: #f6f6f6;
+    margin-left: 20px;
+  }
+
+  /* Style for the form */
+  #contact-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  /* Style for the form labels */
+  #contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #4a4a4a;
+    text-align: left;
+  }
+
+  /* Style for the form fields */
+  #contact-form input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    background-color: #f6f6f6;
+    color: #4a4a4a;
+  }
+
+  /* Make the table smaller */
+table {
+  font-size: 14px;
+}
+
+/* Position the table on the left side of the screen */
+.container {
+  margin: 20px;
+  margin-right: 0;
+  width: calc(100% - 10px);
+  float: left;
+}
+
+/* Adjust the width of the table columns */
+th:first-child,
+td:first-child {
+  width: 20%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 60%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 20%;
+}
+
+</style>
+<div class="parent-container">
+  <div id="contact-form">
+    <label for="image-preview">Photo</label>
+   <img src="data:image/jpg;base64,{{ transporteur.photo}} " >
+    <label for="nom">Nom:</label>
+    <input type="text" id="nom" name="nom" value={{transporteur.nom}} >
+    <label for="prenom">Prenom:</label>
+    <input type="text" id="prenom" name="prenom" value={{transporteur.prenom}}  >
+    <label for="numero-contact">Numéro du contact:</label>
+    <input type="text" id="numero-contact" name="numero-contact"  value={{transporteur.numTel}}>
+  </div>
+</div>
+
+
+         <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        </footer>
+         </body>
+{% endblock %}

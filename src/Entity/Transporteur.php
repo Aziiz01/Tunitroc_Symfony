@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TransporteurRepository;
 
 /**
  * Transporteur
  *
  * @ORM\Table(name="transporteur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=TransporteurRepository::class)
  */
 class Transporteur
 {

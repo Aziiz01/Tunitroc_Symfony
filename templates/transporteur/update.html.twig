@@ -26,7 +26,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_front') }}">Home</a></li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_avis') }}">Transport</a>
+    <a class="nav-link" href="{{ path('app_transporteur') }}">Transport</a>
 </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -49,11 +49,33 @@
             </div>
         </nav>
         <div class="container">
-  <h2>Entrez l'ID de votre échange</h2>
+  <h2>Entrez votre ID</h2>
   <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Entrez l'ID de votre échange" aria-label="Entrez l'ID de votre échange" aria-describedby="button-addon2">
-    <button id="show" class="btn btn-outline-dark" type="button" onclick="show()">Rechercher</button>
-  </div>
+  <input type="text" class="form-control" id="search-input" placeholder="Entrez votre ID" aria-label="Entrez votre ID" aria-describedby="button-addon2">
+  <a href="#" id="search-link" class="btn btn-primary">Rechercher</a>
+</div>
+
+<script>
+  // Get the search link and input elements
+  const searchLink = document.getElementById('search-link');
+  const searchInput = document.getElementById('search-input');
+
+  // Add a click event listener to the search link
+  searchLink.addEventListener('click', function(event) {
+    // Prevent the default link behavior
+    event.preventDefault();
+
+    // Get the value of the input field
+    const id = searchInput.value;
+
+    // Construct the path with the input value
+    const path = "{{ path('transporteur_show', {'id': 'id'}) }}".replace('id', id);
+
+    // Navigate to the new path
+    window.location.href = path;
+  });
+</script>
+
 </div>
 <style>
   /* Container for the form */
@@ -111,23 +133,9 @@
     background-repeat: no-repeat;
   }
 </style>
+            <h2>Avez-vous déjà livré les produits, {{ transporteur.nom }}?</h2>
 
-<div class="parent-container">
-  <div id="contact-form">
-    <label for="image-preview">Photo</label>
-    <div id="image-preview"></div>
-    <label for="nom">Nom:</label>
-    <input type="text" id="nom" name="nom">
-    <label for="prenom">Prenom:</label>
-    <input type="text" id="prenom" name="prenom">
-    <label for="numero-contact">Numéro du contact:</label>
-    <input type="text" id="numero-contact" name="numero-contact">
-  </div>
-</div>
-
-
-
-
+{{ form(f) }}
 
          <!-- Footer-->
         <footer class="py-5 bg-dark">
