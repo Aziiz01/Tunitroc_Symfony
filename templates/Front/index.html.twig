@@ -25,6 +25,9 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ path('app_transporteur') }}">Transport</a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('app_echange') }}">Echanges</a>
+</li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -257,9 +260,9 @@
                 </div>
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
+      {% block footer %}
+   <footer class="fixed-bottom bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
-         </body>
+{% endblock %}
          {% endblock %}

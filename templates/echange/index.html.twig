@@ -52,34 +52,7 @@
             </div>
         </nav>
         <div class="container">
-  <h2>Entrez votre ID</h2>
-  <div class="input-group mb-3">
-  <input type="text" class="form-control" id="search-input" placeholder="Entrez votre ID" aria-label="Entrez votre ID" aria-describedby="button-addon2">
-  <a href="#" id="search-link" class="btn btn-primary">Rechercher</a>
-</div>
-
-<script>
-  // Get the search link and input elements
-  const searchLink = document.getElementById('search-link');
-  const searchInput = document.getElementById('search-input');
-
-  // Add a click event listener to the search link
-  searchLink.addEventListener('click', function(event) {
-    // Prevent the default link behavior
-    event.preventDefault();
-
-    // Get the value of the input field
-    const id = searchInput.value;
-
-    // Construct the path with the input value
-    const path = "{{ path('transporteur_show', {'id': 'id'}) }}".replace('id', id);
-
-    // Navigate to the new path
-    window.location.href = path;
-  });
-</script>
-
-</div>
+  
 <style>
   /* Container for the form */
   .parent-container {
@@ -135,29 +108,11 @@
     background-position: center;
     background-repeat: no-repeat;
   }
-  
 </style>
-<div style="display: flex; flex-direction: column; align-items: center; margin-top: 50px;">
-  <h2 style="font-size: 36px; margin-bottom: 20px; color: #87CBB9; text-transform: uppercase;">Nouvelle plateforme pour les livreurs</h2>
-  <div style="background-color: #f1f1f1; padding: 30px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 20px; line-height: 1.5; color: #444444; text-align: center;">Nous avons lancé une nouvelle plateforme pour vous faciliter la vie. Avec cette plateforme, vous pouvez facilement accéder à toutes les informations sur les livraisons à effectuer, y compris les adresses de livraison, les instructions spéciales et les détails de paiement.</p>
 
-    <p style="font-size: 24px; color: #87CBB9; font-weight: bold; text-align: center; margin-top: 30px;">Chaque livraison effectuée avec succès vous rapportera 7dt </p>
-
-    <p style="font-size: 20px; line-height: 1.5; color: #444444; text-align: center; margin-top: 30px;">Le paiement sera effectué directement sur votre compte bancaire. Vous pouvez consulter votre solde et vos paiements sur la plateforme à tout moment.</p>
-
-    <p style="font-size: 20px; line-height: 1.5; color: #444444; text-align: center; margin-top: 30px;">Pour accéder à la plateforme, il vous suffit de télécharger notre application et de vous connecter avec votre compte. Si vous avez des questions ou des problèmes, n'hésitez pas à contacter notre service clientèle.</p>
-
-    <p style="font-size: 20px; line-height: 1.5; color: #444444; text-align: center; margin-top: 30px;">Nous espérons que cette nouvelle plateforme vous aidera à effectuer vos livraisons plus efficacement et à gagner plus d'argent. Merci pour votre travail acharné et votre dévouement envers notre entreprise.</p>
-  </div>
-</div>
-
-
- {% block footer %}
+{% block footer %}
    <footer class="fixed-bottom bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
 {% endblock %}
 {% endblock %}
-
-

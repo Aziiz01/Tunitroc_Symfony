@@ -12,7 +12,7 @@ use App\Repository\TransporteurRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Echange;
 use App\Form\EchangeType;
-
+use App\Repository\EchangeRepository;
 
 
 
@@ -29,43 +29,23 @@ public function index(): Response
         'controller_name' => 'TransportController',
     ]);
 }
- /**
-     * @Route("/transporteur/rechercher", name="transporteur_rechercher")
-     */
-    public function rechercher(Request $request, TransporteurRepository $transporteurRepository)
-    {
-        $form = $this->createFormBuilder()
-            ->add('id', TextType::class)
-            ->add('rechercher', SubmitType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            // Call the `show()` method with the provided ID
-            $transporteur = $this->show($data['id'], $transporteurRepository->getManager());
-            return $this->render('transporteur/show.html.twig', array('transporteur' => $transporteur));
-        }
-
-        return $this->render('transporteur/rechercher.html.twig', array('form' => $form->createView()));
-    }
+ 
 
     #[Route('/transporteur/{id}', name: 'transporteur_show')]
-    public function show($id, ManagerRegistry $doctrine) : response
+    public function show($id, ManagerRegistry $doctrine, EchangeRepository $echangeRepository) : Response
     {
         $transporteur = $doctrine->getRepository(Transporteur::class)->find($id);
-    
+
+        $livredEchangesCount = $echangeRepository->countEchangesByState('livré');
+        $totalAmount = $livredEchangesCount * 7;
+
         $echanges = $doctrine->getRepository(Echange::class)->findBy(['idTransporteur' => $id]);
-    
-       /* foreach($transporteur as $key => $value) {
-            $value->setPhoto()(base64_encode(stream_get_contents($value->getPhoto())));
-        }*/
-    
+
         return $this->render('transporteur/show.html.twig', [
             'transporteur' => $transporteur,
             'echanges' => $echanges,
+            'totalAmount' => $totalAmount,
+            'livredEchangesCount' => $livredEchangesCount,
         ]);
     }
     #[Route('/update/{id}', name: 'update_trechange')]
@@ -73,8 +53,12 @@ public function index(): Response
     {
         $echange = $doctrine->getRepository(Echange::class)->find($id);
         $form = $this->createForm(EchangeType::class, $echange);
-        $form->add('update', SubmitType::class);
-        $form->handleRequest($request);
+        $form->add('update', SubmitType::class, [
+            'attr' => ['class' => 'btn btn-primary'],
+            'label_html' => true,
+            'label' => 'Update <i class="fas fa-save"></i>'
+        ]);
+                $form->handleRequest($request);
 
 
         $transporteurId = $echange->getIdTransporteur()->getId();
@@ -90,7 +74,7 @@ public function index(): Response
         $transporteur = $doctrine->getRepository(Transporteur::class)->find($transporteurId);
 
         return $this->renderForm("transporteur/update.html.twig", [
-            'f' => $form,
+            'form' => $form,
             'transporteur' => $transporteur,
         ]);
     }
