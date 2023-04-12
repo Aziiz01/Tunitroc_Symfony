@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -27,13 +26,14 @@ class Echange
      * @ORM\Column(name="etat", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
     private $etat = 'NULL';
+    
     /**
      * @var string|null
      *
      * @ORM\Column(name="location", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
     private $location = 'NULL';
-
+    
     /**
      * @var \Panier
      *
@@ -54,6 +54,8 @@ class Echange
      */
     private $idTransporteur;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +72,7 @@ class Echange
 
         return $this;
     }
+
     public function getLocation(): ?string
     {
         return $this->location;
@@ -106,5 +109,5 @@ class Echange
         return $this;
     }
 
-
+    
 }
