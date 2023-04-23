@@ -15,6 +15,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     </head>
     <body>
    <!-- Navigation-->
@@ -108,7 +110,123 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+  .confirm-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
 </style>
+<script>
+    // Send an AJAX request to confirm the exchange
+    const confirmExchange = async (id) => {
+        const response = await fetch(`path('confirmer_echange', {'id': echange.id})`);
+        const data = await response.json();
+        
+        // Display the alert
+        const alert = document.createElement('div');
+        alert.classList.add('alert', `alert-${response.headers.get('X-Alert-Type')}`);
+        alert.innerHTML = data.message;
+        document.body.appendChild(alert);
+        
+        // Remove the alert after a few seconds
+        setTimeout(() => {
+            alert.remove();
+        }, 5000);
+    };
+
+    // Call the confirmExchange function when the Confirmer link is clicked
+    const confirmLinks = document.querySelectorAll('.confirm-link');
+    confirmLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            confirmExchange(link.dataset.id);
+        });
+    });
+</script>
+
+<h1>Liste des Echanges</h1>
+
+    <table class="table table-hover table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID de l'échange <i class="fa-solid fa-arrow-right-arrow-left fa-fade"></i></th>
+            <th scope="col">Créé le <i class="fa-solid fa-calendar-days fa-fade"></i></th>
+            <th scope="col">Localisation   <i class="fa-solid fa-location-dot fa-fade"></i></th>
+            <th scope="col">Nom et prénom du livreur  <i class="fa-sharp fa-solid fa-user-helmet-safety fa-fade"></i></th>
+            <th scope="col">Etat <i class="fa-solid fa-truck-ramp-box fa-fade"></i></th>
+            <th scope="col">Actions  <i class="fa-regular fa-arrows-turn-to-dots fa-fade"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for echange in echanges %}
+        <tr>
+            <td>{{ echange.id }}</td>  
+            <td>{{ echange.createdAt|date('d/m/Y H:i') }}</td>
+            <td>{{ echange.location }}</td>
+            <td>
+                {% if echange.idTransporteur %}
+                {{ echange.getIdTransporteur().nom ~ ' ' ~ echange.getIdTransporteur().prenom }}
+                {% else %}
+                Aucun transporteur assigné
+                {% endif %}
+            </td>
+            <td>
+                {{ echange.etat }}
+                {% if echange.etat == "livré" %}
+<a href="{{ path('confirmer_echange', {'id': echange.id}) }}" class="confirm-link">
+  Confirmer
+</a>
+
+                {% endif %}
+            </td>
+            
+<td>
+    <a href="{{ path('generer_facture', {'id': echange.id}) }}" class="btn btn-primary">Générer Facture</a>
+</td>
+                
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% block footer %}
    <footer class="fixed-bottom bg-dark">

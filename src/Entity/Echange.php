@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Echange
- *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="echange", indexes={@ORM\Index(name="fk_panier_echange", columns={"id_panier"}), @ORM\Index(name="fk_transporteur_echange", columns={"id_transporteur"})})
  * @ORM\Entity
  */
@@ -53,6 +53,12 @@ class Echange
      * })
      */
     private $idTransporteur;
+/**
+ * @var \DateTime
+ *
+ * @ORM\Column(name="createdAt", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+ */
+private $createdAt;
 
     
 
@@ -108,6 +114,18 @@ class Echange
 
         return $this;
     }
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+    
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+   
 
     
 }

@@ -39,14 +39,7 @@
                     </ul>
                 </li>
             </ul>
-            <div class="d-flex">
-                {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="btn btn-outline-danger me-2">Sign out</a>
-                {% else %}
-                <a href="{{ path('app_login') }}" class="btn btn-outline-primary me-2">Login</a>
-                <a href="{{ path('app_register') }}" class="btn btn-primary">Sign up</a>
-                {% endif %}
-            </div>
+           
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
